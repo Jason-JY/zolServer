@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="indexstyle.css">
+</head>
+<!-- CSS goes in the document HEAD or added to your external stylesheet -->
+<style type="text/css">
+table.gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+</style>
+<script type="text/javascript">
+//爬取
+function sBtn_click() {
+	//var userid = document.getElementById("userid").value;//要提交的值
+	var option;
+	var order;
+	if(document.getElementById("cpu").checked){
+	option ="cpu";
+	}
+	if(document.getElementById("memory").checked){
+	option ="memory";
+	}
+	if(document.getElementById("mainboard").checked){
+	option ="board";
+	}
+	if(document.getElementById("power").checked){
+	option ="power";
+	}
+	if(document.getElementById("radiator").checked){
+	option ="radiator";
+	}
+	if(document.getElementById("graphic").checked){
+	option ="graphic";
+	}
+	if(document.getElementById("name").checked){
+	order ="name";
+	}
+	if(document.getElementById("sales").checked){
+	order ="sales";
+	}
+	if(document.getElementById("price_up").checked){
+	order ="price_up";
+	}
+	if(document.getElementById("price_down").checked){
+	order ="price_down";
+	}
+	var f = document.getElementById("parts");
+    //f.action=f.action+"?option="+option+"&order="+order;
+    f.action="http://123.56.29.118/index/"+"?option="+option+"&order="+order;
+    document.getElementById("parts").submit();//刷新页面，返回标签id为line
+	document.getElementById("line").innerHTML = '<table border="1"><thead><tr><th>参数</th><th>名称</th><th>价格</th><th>供货商</th><th>客服电话</th>	<th>客服qq</th><th>产品图片</th><th></th></tr></thead><tbody>{% for line in main %}<tr><td>{{line.id}}</td><td>{{line.name}}</td><td>{{line.price}}</td><td>{{line.provider}}</td><td>{{line.supportstaff_tel}}</td><td>{{line.supportstaff_qq}}</td><td><img src={{line.image1}}   /></td><td><form id = \'detail\' method = \'post\' action="test?id = "+{{line.id}}> <input type="button" id="line.attr" value="详情" size="{{line.id}}" onclick="dBtn_click(this);" /></form></td></tr>{% endfor %}</tbody></table>';
+}
+//跳转
+function dBtn_click(obj) {
+	var data = obj.size;
+	var attr = obj.id;
+	var f = document.getElementById("detail");
+	f.action="http://123.56.29.118/parameter/"+"?id="+data+"&attr="+attr;
+
+    document.getElementById("detail").submit();//提交表单，表单id为detail，跳转页面
+}
+//重新爬取
+function lBtn_click() {
+    document.getElementById("lasttime").submit();//提交表单，表单id为lasttime，重新爬取
+}
+</script>
+<title>产品数据库</title>
+<div class="Title">产品数据库</div>
+
+<form method='post' id="parts" action = "">
+<fieldset id="fs1">
+<legend id="leg1">PC机配件:</legend>
+ <input type="radio" name="option" id = "cpu"/>CPU
+ <input type="radio" name="option" id = "memory"/>内存
+<input type="radio" name="option" id = "mainboard"/>主板
+ <input type="radio" name="option" id = "power"/>电源
+ <input type="radio" name="option" id = "radiator"/>散热器
+<input type="radio" name="option" id = "graphic"/>显卡
+</fieldset>
+<div id="submit">
+    <fieldset id="fs1">
+          查找顺序：<input type="radio" name="" id = "name"/>名称
+    <input type="radio" name="order" id = "sales"/>销量
+    <input type="radio" name="order" id = "price_up"/>价格升序
+    <input type="radio" name="order" id = "price_down"/>价格降序
+    <input type="button" id="subutton" value="查找" onclick="sBtn_click();" />
+    </fieldset>
+    </div>
+</form>
+<form method='post' id="lasttime" action = "http://123.56.29.118/scrapy/">
+<div>
+   上次爬取时间：{{time}}<input type="button" id="lbtn" value="重新爬取" onclick="lBtn_click();" />
+</div>
+</form>
+<body>
+	<div id = "line">
+		<table border="1" class="gridtable">
+			<thead>
+				<tr>
+					<th>I D</th>
+					<th>名称</th>
+					<th>价格</th>
+					<th>供货商</th>
+					<th>客服电话</th>
+					<th>客服qq</th>
+					<th>产品图片</th>
+					<th>操作</th>
+
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for line in main%}
+					<tr>
+					    <form id = 'detail' method = 'post' >
+						<td>{{line.id}}</td>
+						<td>{{line.name}}</td>
+						<td>{{line.price}}</td>
+						<td>{{line.provider}}</td>
+						<td>{{line.supportstaff_tel}}</td>
+						<td>{{line.supportstaff_qq}}</td>
+						<td><img src={{line.image1}}   /></td>
+                        <td>
+                        <input type="button" id="{{line.attr}}" value="详情" size="{{line.id}}" onclick="dBtn_click(this);" />
+                        </form>
+                        </td>
+					</tr>
+                {% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>
