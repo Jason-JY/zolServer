@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="indexstyle.css">
+</head>
+<style type="text/css">
+table.gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+</style>
+<script>
+    function getinfo(var s) {
+	var id;
+	id = s;
+    f.action="http://123.56.29.118/info/"+"?id="+id;
+
+}
+</script>
+<div id = "name">{{info.name}}</div>
+<div id = "price">{{info.price}}</div>
+<div id = "provider">{{info.provider}}</div>
+<div id = "tel">{{info.supportstaff_tel}}</div>
+</html>

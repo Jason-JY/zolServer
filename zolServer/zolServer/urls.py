@@ -17,6 +17,7 @@ from django.conf.urls import url
 from .import views
 
 urlpatterns = [
+    url(r'^info/',views.info),
     url(r'^index/',views.show),
     url(r'^scrapy/',views.crawl),
     url(r'^parameter/',views.parameter)
