@@ -20,5 +20,6 @@ urlpatterns = [
     url(r'^info/',views.info),
     url(r'^index/',views.show),
     url(r'^scrapy/',views.crawl),
-    url(r'^parameter/',views.parameter)
+    url(r'^parameter/',views.parameter),
+    url(r'^hello/demo',views.demo)
 ]

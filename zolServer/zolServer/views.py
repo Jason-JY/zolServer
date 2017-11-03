@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from zolServer.detail import detail
 from zolServer.scrapy import scrapy
+from django.http import HttpResponse
 import sys
 import threading
 import time
@@ -143,5 +144,6 @@ def info(request):
     id = request.GET.get('info', "0")
     from zolServer import models
     info = models.cpu_list_test.objects.get(id=id)
-
     return render(request, 'newsdemo.html', {'info': info})
+def demo(request):
+    return HttpResponse("Hello Word")
