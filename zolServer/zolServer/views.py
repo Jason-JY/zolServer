@@ -4,7 +4,7 @@ from zolServer.detail import detail
 from zolServer.scrapy import scrapy
 from django.http import HttpResponse
 import sys
-import threading
+
 import time
 reload(sys)
 from zolServer import models
@@ -147,3 +147,11 @@ def info(request):
     return render(request, 'newsdemo.html', {'info': info})
 def demo(request):
     return HttpResponse("Hello Word")
+def info_cpu(request):
+    import json
+    mydetail = detail()
+    a = mydetail.getcpu_main()
+    box ={}
+    box('name',a.name)
+    json = json.dumps(box);
+    return HttpResponse(json)
