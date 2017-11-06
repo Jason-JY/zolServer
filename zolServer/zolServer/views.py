@@ -151,8 +151,8 @@ def info_cpu(request):
     import json
     id = request.GET.get('id')
     mydetail = detail()
-    a = mydetail.getcpu_main(id)
+    a = mydetail.getcpu_detail(id)
     box ={}
-    box('name',a.name)
+    box('id',a.id)
     json = json.dumps(box);
     return HttpResponse(json)
