@@ -149,8 +149,9 @@ def demo(request):
     return HttpResponse("Hello Word")
 def info_cpu(request):
     import json
+    id = request.GET.get('id')
     mydetail = detail()
-    a = mydetail.getcpu_main()
+    a = mydetail.getcpu_main(id)
     box ={}
     box('name',a.name)
     json = json.dumps(box);
