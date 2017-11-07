@@ -17,10 +17,12 @@ from django.conf.urls import url
 from .import views
 
 urlpatterns = [
-    url(r'^info/',views.info),
+
     url(r'^index/',views.show),
     url(r'^scrapy/',views.crawl),
     url(r'^parameter/',views.parameter),
     url(r'^hello/demo',views.demo),
-    url(r'^info/cpu',views.info_cpu)
+    url(r'^cpuinfo',views.cpuinfo),
+    url(r'^cpudetail',views.cpudetail)
+
 ]

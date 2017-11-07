@@ -147,12 +147,49 @@ def info(request):
     return render(request, 'newsdemo.html', {'info': info})
 def demo(request):
     return HttpResponse("Hello Word")
-def info_cpu(request):
+def cpuinfo(request):
     import json
     id = request.GET.get('id')
     mydetail = detail()
-    a = mydetail.getcpu_detail(id)
-    box ={}
-    box('id',a.id)
+    a = models.cpu_list_test.objects.all()
+    box = []
+    for item in a:
+        item_box = {}
+        item_box['tel'] = item.supportstaff_tel
+        item_box['price'] = item.price
+        item_box['name'] = item.name
+        item_box['provider'] = item.provider
+        item_box['image'] = item.image1
+        item_box['id'] = item.id
+        box.append(item_box)
     json = json.dumps(box);
     return HttpResponse(json)
+def cpudetail(request):
+    '''
+       绑定参数界面/parameter的方法
+       :param request:
+       :return:
+       '''
+    Mydetail = detail()
+    id = request.GET.get('id', "NULL")
+    attr = request.GET.get('attr', "NULL")
+    if attr == 'cpu':
+        main = models.cpu_list_test.objects.get(id=id)
+        para = Mydetail.getcpu_detail(id)
+    if attr == 'board':
+        main = models.board_list_test.objects.get(id=id)
+        para = Mydetail.getboard_detail(id)
+    if attr == 'mem':
+        main = models.mem_list_test.objects.get(id=id)
+        para = Mydetail.getmem_detail(id)
+    if attr == 'graphic':
+        main = models.graphic_list_test.objects.get(id=id)
+        para = Mydetail.getgraphic_detail(id)
+    if attr == 'power':
+        main = models.power_list_test.objects.get(id=id)
+        para = Mydetail.getpower_detail(id)
+    if attr == 'radiator':
+        main = models.radiator_list_test.objects.get(id=id)
+        para = Mydetail.getradiator_detail(id)
+    return render(request, 'jc_demo.html', {'main': main, 'para': para})
+

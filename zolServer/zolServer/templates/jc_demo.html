@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="indexstyle.css">
+</head>
+<!-- CSS goes in the document HEAD or added to your external stylesheet -->
+<style type="text/css">
+table.gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+</style>
+<title>产品详情</title>
+<div class="Title">产品数据库</div>
+<form action="" method="POST"  id="parts">
+
+</form>
+<body>
+	<div>
+		<table border="1" class="gridtable">
+
+			<tbody>
+				{% for line in para %}
+					<tr>
+						<td>{{line.name}}</td>
+						<td>{{line.attr}}</td>
+					</tr>
+                {% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>
